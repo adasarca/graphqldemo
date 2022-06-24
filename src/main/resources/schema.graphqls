@@ -1,0 +1,37 @@
+type Link {
+  url: String!
+  description: String!
+  postedBy: User
+}
+
+type User {
+    id: Int!
+    name: String!
+    email: String!
+}
+
+type Vote {
+    id: Int!
+    createdAt: DateTime!
+    user: User!
+    link: Link!
+}
+
+scalar DateTime
+
+type Query {
+  allLinks: [Link]
+  allUsers: [User]
+  allVotes(userId: Int, linkId: Int): [Vote]
+}
+
+type Mutation {
+  createLink(url: String!, description: String!, postedBy: Int!): Link
+  createUser(name: String!, email: String!): User
+  createVote(linkId: Int!, userId: Int!): Vote
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
